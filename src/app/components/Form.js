@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { insertRequest } from "@/utils/requests";
 function Form({ slug }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   async function addRequest(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
