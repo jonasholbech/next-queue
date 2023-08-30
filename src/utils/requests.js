@@ -35,7 +35,11 @@ export async function insertRequest({ name, problem, description, room }) {
   const { error, data } = await supabase
     .from("mmd_queue_requests")
     .insert({ name, problem, description, room });
-  return { error, data };
+  console.log({ name, problem, description, room });
+  if (!error) {
+    return 200;
+  }
+  return error;
 }
 export function subscribeToRoom(callback, room) {
   supabase

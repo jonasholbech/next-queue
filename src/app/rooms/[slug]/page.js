@@ -13,7 +13,7 @@ export default async function RoomSlug({ params: { slug } } = props) {
   return (
     <main className={styles.main}>
       <Form slug={slug} />
-      <Room data={data} slug={slug} username={"TBD"} />
+      <Room data={data} slug={slug} />
     </main>
   );
 }

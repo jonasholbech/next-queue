@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import styles from "./Room.module.css";
 import { subscribeToRoom } from "@/utils/requests";
 import Request from "./Request";
-function Room({ data, slug, username }) {
+function Room({ data, slug }) {
   const [requests, setRequests] = useState([]);
   useEffect(() => {
     setRequests(data);
@@ -35,7 +35,7 @@ function Room({ data, slug, username }) {
     <section>
       <ol>
         {requests.map((req) => {
-          return <Request key={req.id} req={req} username={username} />;
+          return <Request key={req.id} req={req} />;
         })}
       </ol>
     </section>
