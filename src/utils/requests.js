@@ -32,10 +32,10 @@ export async function deleteRequest(id) {
   }
 }
 export async function insertRequest({ name, problem, description, room }) {
-  const { error } = await supabase
+  const { error, data } = await supabase
     .from("mmd_queue_requests")
     .insert({ name, problem, description, room });
-  console.log(error);
+  return { error, data };
 }
 export function subscribeToRoom(callback, room) {
   supabase
