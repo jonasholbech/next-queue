@@ -1,0 +1,21 @@
+.request {
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem;
+}
+.actionbar {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.delete {
+  --background-color: rgb(247, 40, 40);
+  --border-color: rgb(247, 40, 40);
+  --box-shadow: var(--button-hover-box-shadow, 0 0 0 rgba(0, 0, 0, 0));
+  --color: var(--primary-inverse);
+}
+.delete:hover {
+  --background-color: rgb(211, 18, 18);
+  --border-color: rgb(211, 18, 18);
+}

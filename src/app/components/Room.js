@@ -1,8 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import styles from "./Room.module.css";
-import { deleteRequest, subscribeToRoom, updateState } from "@/utils/requests";
-function Room({ data, slug }) {
+import { subscribeToRoom } from "@/utils/requests";
+import Request from "./Request";
+function Room({ data, slug, username }) {
   const [requests, setRequests] = useState([]);
   useEffect(() => {
     setRequests(data);
@@ -34,20 +35,7 @@ function Room({ data, slug }) {
     <section>
       <ol>
         {requests.map((req) => {
-          return (
-            <li key={req.id} className={styles.request}>
-              <p>{req.name}</p>
-              <div>
-                <p>{req.problem}</p> <p>{req.description}</p>
-              </div>
-              <div>
-                <button onClick={() => updateState(req.id, req.state)}>
-                  {req.state}
-                </button>
-                <button onClick={() => deleteRequest(req.id)}>Slet</button>
-              </div>
-            </li>
-          );
+          return <Request key={req.id} req={req} username={username} />;
         })}
       </ol>
     </section>

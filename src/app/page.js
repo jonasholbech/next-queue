@@ -5,7 +5,6 @@ import RoomPicker from "./components/RoomPicker";
 
 export default async function Home() {
   let { data, error } = await getRooms();
-  console.log(data);
   return (
     <main>
       <RoomPicker rooms={data} />
