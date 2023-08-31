@@ -2,6 +2,7 @@ import Room from "@/app/components/Room";
 import { getRequestsForRoom, insertRequest } from "@/utils/requests";
 import styles from "./page.module.css";
 import Form from "@/app/components/Form";
+
 export const fetchCache = "force-no-store";
 export const revalidate = 0; // seconds
 export const dynamic = "force-dynamic";
