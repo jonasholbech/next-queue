@@ -11,7 +11,7 @@ export async function getRequestsForRoom(slug) {
     .from("mmd_queue_requests")
     .select(`id, created_at, name, problem, description, state`)
     .eq("room", slug);
-  console.log("GETTING INITIAL DATA");
+  console.log("GETTING INITIAL DATA", data, error);
   return { data, error };
 }
 
@@ -34,10 +34,11 @@ export async function deleteRequest(id) {
 export async function insertRequest({ name, problem, description, room }) {
   const { error, data } = await supabase
     .from("mmd_queue_requests")
-    .insert({ name, problem, description, room });
+    .insert({ name, problem, description, room })
+    .select();
   console.log({ name, problem, description, room });
   if (!error) {
-    return 200;
+    return data;
   }
   return error;
 }

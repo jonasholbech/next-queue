@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 export default async function RoomSlug({ params: { slug } } = props) {
   let { data, error } = await getRequestsForRoom(slug);
-  console.log(data, error);
+  console.log(data, error, slug);
 
   return (
     <main className={styles.main}>

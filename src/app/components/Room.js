@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-import styles from "./Room.module.css";
+//import styles from "./Room.module.css";
 import { subscribeToRoom } from "@/utils/requests";
 import Request from "./Request";
-function Room({ data, slug }) {
+function Room({ data = [], slug }) {
   const [requests, setRequests] = useState([]);
   useEffect(() => {
     setRequests(data);
@@ -33,6 +33,7 @@ function Room({ data, slug }) {
   }
   return (
     <section>
+      {requests.length === 0 && <p>Ingen problemer i køen</p>}
       <ol>
         {requests.map((req) => {
           return <Request key={req.id} req={req} />;

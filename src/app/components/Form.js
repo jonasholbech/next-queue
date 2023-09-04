@@ -1,7 +1,10 @@
 "use client";
 import { useState } from "react";
 import { insertRequest } from "@/utils/requests";
+import { addID } from "@/utils/storage";
+
 function Form({ slug }) {
+  console.log(slug);
   const [open, setOpen] = useState(false);
   async function addRequest(e) {
     e.preventDefault();
@@ -14,21 +17,28 @@ function Form({ slug }) {
       description: formData.get("description"),
       room: formData.get("slug"),
     });
-    console.log(response);
     if (response) {
+      addID(response[0].id);
       setOpen(false);
     }
-  }
-  if (!open) {
-    return (
-      <button className="outline" onClick={() => setOpen(true)}>
-        Tilføj problem
-      </button>
-    );
   }
   function getUser() {
     return localStorage.getItem("username") || "";
   }
+  if (!open) {
+    return (
+      <button
+        className="outline"
+        onClick={() => {
+          setOpen(true);
+          console.log("clicked");
+        }}
+      >
+        Tilføj problem
+      </button>
+    );
+  }
+
   return (
     <dialog open={open}>
       <article>

@@ -1,8 +1,13 @@
 .request {
   display: grid;
-  grid-template-columns: 150px 1fr auto;
+  grid-template-columns: 150px 1fr 300px;
   border-bottom: 1px solid #ddd;
   padding: 1rem;
+  align-items: center;
+}
+.request p:first-child {
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 .actionbar {
   display: flex;
@@ -18,4 +23,8 @@
 .delete:hover {
   --background-color: rgb(211, 18, 18);
   --border-color: rgb(211, 18, 18);
+}
+.subtle {
+  color: rgb(124, 120, 120);
+  font-size: 0.8rem;
 }
