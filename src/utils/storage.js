@@ -5,6 +5,12 @@ export function addID(id) {
 function getIDs() {
   return JSON.parse(localStorage.getItem("ids")) || [];
 }
+export function setUser(name) {
+  localStorage.setItem("username", name);
+}
+export function setAdmin() {
+  localStorage.setItem("queue_role", "very_yes");
+}
 export function getUserName() {
   return localStorage.getItem("username") || "";
 }

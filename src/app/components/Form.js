@@ -4,12 +4,10 @@ import { insertRequest } from "@/utils/requests";
 import { addID, getUserName } from "@/utils/storage";
 
 function Form({ slug }) {
-  console.log(slug);
   const [open, setOpen] = useState(false);
   async function addRequest(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
-    console.log(formData);
     localStorage.setItem("username", formData.get("name"));
     const response = await insertRequest({
       name: formData.get("name"),
