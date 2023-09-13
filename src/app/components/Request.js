@@ -7,11 +7,11 @@ console.log(daLocale);
 function Request({ req }) {
   return (
     <li className={styles.request}>
-      <div>
+      <div className={styles.profile}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
+          width="50"
+          height="50"
           fill={canDelete(req.id) ? "hotpink" : "currentColor"}
           className="bi bi-person-circle"
           viewBox="0 0 16 16"
@@ -28,7 +28,7 @@ function Request({ req }) {
         </p>
       </div>
 
-      <div>
+      <div className={styles.problem}>
         <p>{req.problem}</p> <p className={styles.subtle}>{req.description}</p>
       </div>
       {canDelete(req.id) && (
