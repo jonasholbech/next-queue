@@ -9,7 +9,7 @@ export async function getRooms() {
 export async function getRequestsForRoom(slug) {
   let { data, error } = await supabase
     .from("mmd_queue_requests")
-    .select(`id, created_at, name, problem, description, state`)
+    .select(`id, created_at, name, problem, description, state, initials`)
     .eq("room", slug);
   console.log("GETTING INITIAL DATA", data, error);
   return { data, error };
@@ -31,12 +31,18 @@ export async function deleteRequest(id) {
     console.log("ERROR DELETING REQUEST", error);
   }
 }
-export async function insertRequest({ name, problem, description, room }) {
+export async function insertRequest({
+  name,
+  problem,
+  description,
+  room,
+  initials,
+}) {
   const { error, data } = await supabase
     .from("mmd_queue_requests")
-    .insert({ name, problem, description, room })
+    .insert({ name, problem, description, room, initials })
     .select();
-  console.log({ name, problem, description, room });
+  console.log({ name, problem, description, room, initials });
   if (!error) {
     return data;
   }

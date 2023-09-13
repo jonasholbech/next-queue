@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { insertRequest } from "@/utils/requests";
-import { addID } from "@/utils/storage";
+import { addID, getUserName } from "@/utils/storage";
 
 function Form({ slug }) {
   console.log(slug);
@@ -13,6 +13,7 @@ function Form({ slug }) {
     localStorage.setItem("username", formData.get("name"));
     const response = await insertRequest({
       name: formData.get("name"),
+      initials: formData.get("initials"),
       problem: formData.get("problem"),
       description: formData.get("description"),
       room: formData.get("slug"),
@@ -22,9 +23,7 @@ function Form({ slug }) {
       setOpen(false);
     }
   }
-  function getUser() {
-    return localStorage.getItem("username") || "";
-  }
+
   if (!open) {
     return (
       <button
@@ -52,21 +51,29 @@ function Form({ slug }) {
           Tilføj Problem
         </header>
         <form onSubmit={addRequest}>
-          {getUser() ? (
+          {getUserName() ? (
             <>
-              <p>Hej {getUser()}</p>
-              <input type={"hidden"} name="name" value={getUser()} />
+              <p>Hej {getUserName()}</p>
+              <input type={"hidden"} name="name" value={getUserName()} />
             </>
           ) : (
             <label>
               Navn
-              <input type={"text"} name="name" defaultValue={""} />
+              <input type={"text"} name="name" required defaultValue={""} />
             </label>
           )}
 
           <label>
+            KEA mail
+            <input
+              type="text"
+              name="initials"
+              placeholder="Hvis vi skal ringe dig op"
+            />
+          </label>
+          <label>
             Problem
-            <input type="text" name="problem" />
+            <input type="text" name="problem" required />
           </label>
           <input type="hidden" name="slug" value={slug} />
           <label>
