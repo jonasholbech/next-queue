@@ -14,7 +14,7 @@ function Nav() {
   };
   return (
     <nav className={styles.nav}>
-      <Link href="/">
+      <Link href="/" ariaLabel="Til forsiden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
