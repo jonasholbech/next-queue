@@ -2,7 +2,8 @@ import { supabase } from "./database";
 export async function getRooms() {
   let { data, error } = await supabase
     .from("mmd_queue_room")
-    .select(`id, name`);
+    .select(`id, name`)
+    .order("name");
   return { data, error };
 }
 
