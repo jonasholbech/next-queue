@@ -15,6 +15,9 @@ export function setAdmin() {
   localStorage.setItem("queue_role", "very_yes");
 }
 export function getUserName() {
+  if (typeof window == "undefined") {
+    return "";
+  }
   return localStorage.getItem("username") || "";
 }
 export function isAdmin() {

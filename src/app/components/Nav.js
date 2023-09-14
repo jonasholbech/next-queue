@@ -3,8 +3,10 @@ import { clearAll, getUserName } from "@/utils/storage";
 import styles from "./Nav.module.css";
 function Nav() {
   const clear = () => {
-    clearAll();
-    window.location.reload();
+    if (typeof window !== "undefined") {
+      clearAll();
+      window.location.reload();
+    }
   };
   return (
     <nav className={styles.nav}>
