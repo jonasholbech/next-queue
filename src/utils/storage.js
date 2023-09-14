@@ -1,3 +1,6 @@
+export function clearAll() {
+  localStorage.clear();
+}
 export function addID(id) {
   let ids = JSON.parse(localStorage.getItem("ids")) || [];
   localStorage.setItem("ids", JSON.stringify(ids.concat(id)));

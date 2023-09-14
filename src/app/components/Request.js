@@ -45,7 +45,7 @@ function Request({ req }) {
       <div className={styles.problem}>
         <p>{req.problem}</p> <p className={styles.subtle}>{req.description}</p>
       </div>
-      {canDelete(req.id) && (
+      {canDelete(req.id) ? (
         <div className={styles.actionbar}>
           <button onClick={() => updateState(req.id, req.state)}>
             {req.state}
@@ -58,6 +58,8 @@ function Request({ req }) {
             Slet
           </button>
         </div>
+      ) : (
+        <p>{req.state}</p>
       )}
     </li>
   );

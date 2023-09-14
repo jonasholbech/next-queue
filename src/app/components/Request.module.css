@@ -7,6 +7,9 @@
   border-radius: 8px;
   box-shadow: 1px 1px 2px var(--color-black-950);
 }
+.request p {
+  margin-bottom: 0;
+}
 .request .profile,
 .request .problem {
   padding: 1rem;

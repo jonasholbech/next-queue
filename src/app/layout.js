@@ -1,3 +1,4 @@
+import Nav from "./components/Nav";
 import "./globals.css";
 import Head from "next/head";
 export const metadata = {
@@ -11,7 +12,10 @@ export default function RootLayout({ children }) {
       <Head>
         <link rel="icon" href="/icon.svg" sizes="any" />
       </Head>
-      <body>{children}</body>
+      <body>
+        <Nav />
+        {children}
+      </body>
     </html>
   );
 }
