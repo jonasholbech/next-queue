@@ -10,7 +10,8 @@ export async function getRequestsForRoom(slug) {
   let { data, error } = await supabase
     .from("mmd_queue_requests")
     .select(`id, created_at, name, problem, description, state, initials`)
-    .eq("room", slug);
+    .eq("room", slug)
+    .order("created_at");
   console.log("GETTING INITIAL DATA", data, error);
   return { data, error };
 }
