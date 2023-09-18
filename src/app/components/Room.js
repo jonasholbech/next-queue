@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { subscribeToRoom } from "@/utils/requests";
 import Request from "./Request";
+import styles from "./Room.module.css";
 function Room({ data = [], slug }) {
   const [requests, setRequests] = useState([]);
   useEffect(() => {
@@ -33,7 +34,7 @@ function Room({ data = [], slug }) {
   return (
     <section>
       {requests.length === 0 && <p>Ingen problemer i køen</p>}
-      <ol>
+      <ol className={styles.list}>
         {requests.map((req) => {
           return <Request key={req.id} req={req} />;
         })}
