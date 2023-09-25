@@ -8,10 +8,10 @@ export default async function Home() {
     res.json()
   );
   console.log(users); */
-  console.log(process.env.VERCEL_URL);
+  //console.log(process.env.VERCEL_URL);
   return (
     <main className={styles.main}>
-      <h1>MMD Køen, V2</h1>
+      <h1>MMD Køen, V2 {getAbsoluteUrl()}</h1>
       <RoomPicker rooms={data} />
     </main>
   );
