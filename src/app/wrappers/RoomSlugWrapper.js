@@ -12,9 +12,13 @@ export default function RoomSlugWrapper({ slug, data }) {
       );
     })();
   }, []);
+
   return (
     <>
-      <h2>{usersState?.name}</h2>
+      <h2>
+        {getAbsoluteUrl()} {usersState?.name} {process.env.NODE_ENV}
+      </h2>
+
       <Form slug={slug} />
       <Room data={data} slug={slug} />
     </>
