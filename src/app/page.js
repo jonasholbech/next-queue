@@ -4,9 +4,9 @@ import styles from "./page.module.css";
 import { getAbsoluteUrl } from "@/utils/vercel-utils";
 export default async function Home() {
   let { data, error } = await getRooms();
-  const users = await fetch(getAbsoluteUrl() + "/api/swapi").then((res) =>
-    res.json()
-  );
+  const users = await fetch(getAbsoluteUrl() + "/api/swapi", {
+    method: "POST",
+  }).then((res) => res.json());
   console.log(users);
   console.log(process.env.VERCEL_URL);
   return (
