@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-
+import { getSWChar } from "@/utils/requests";
 export async function GET() {
-  const res = await fetch("https://swapi.dev/api/people/1/");
-  const data = await res.json();
+  const data = await getSWChar();
 
-  return NextResponse.json({ data });
+  return NextResponse.json(data);
 }
