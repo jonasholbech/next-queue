@@ -1,5 +1,5 @@
 export const IS_SERVER = typeof window === "undefined";
-export const IS_LOCAL = process.env.NODE_ENV === "development";
+export const IS_LOCAL = process.env.NODE_ENV === "production" ? false : true;
 
 export function getAbsoluteUrl() {
   //get absolute url in client/browser
