@@ -1,7 +1,6 @@
-import Room from "@/app/components/Room";
 import { getRequestsForRoom, insertRequest } from "@/utils/requests";
 import styles from "./page.module.css";
-import Form from "@/app/components/Form";
+import RoomSlugWrapper from "@/app/wrappers/RoomSlugWrapper";
 
 export const fetchCache = "force-no-store";
 export const revalidate = 0; // seconds
@@ -13,8 +12,7 @@ export default async function RoomSlug({ params: { slug } } = props) {
 
   return (
     <main className={styles.main}>
-      <Form slug={slug} />
-      <Room data={data} slug={slug} />
+      <RoomSlugWrapper data={data} slug={slug} />
     </main>
   );
 }
