@@ -31,9 +31,15 @@ function Room({ data = [], slug }) {
         break;
     }
   }
+  /* const mine = requests.filter((request) => canDelete(request.id));
+  const before = requests.filter(
+    (request) =>
+      !canDelete(request.id) && request.created_at < mine[0].created_at
+  ); */
   return (
     <section>
       {requests.length === 0 && <p>Ingen problemer i køen</p>}
+      {/* <p>{before.length} i køen før dig</p> */}
       <ol className={styles.list}>
         {requests.map((req) => {
           return <Request key={req.id} req={req} />;

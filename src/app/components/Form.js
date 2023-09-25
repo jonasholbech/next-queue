@@ -51,7 +51,9 @@ function Form({ slug }) {
         <form onSubmit={addRequest}>
           {getUserName() ? (
             <>
-              <p>Hej {getUserName()}</p>
+              <p>
+                <strong>Hej {getUserName()}</strong>
+              </p>
               <input type={"hidden"} name="name" value={getUserName()} />
             </>
           ) : (
@@ -61,14 +63,18 @@ function Form({ slug }) {
             </label>
           )}
 
-          <label>
-            KEA mail
-            <input
-              type="text"
-              name="initials"
-              placeholder="Hvis vi skal ringe dig op"
-            />
-          </label>
+          <details>
+            <summary>Vil du ringes op?</summary>
+            <label>
+              KEA mail
+              <input
+                type="text"
+                name="initials"
+                placeholder="Hvis vi skal ringe dig op"
+              />
+            </label>
+          </details>
+
           <label>
             Problem
             <input type="text" name="problem" required />

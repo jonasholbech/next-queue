@@ -23,8 +23,8 @@ function Request({ req }) {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="50"
-              height="50"
+              width="30"
+              height="30"
               fill={isAdmin() && req.initials ? "hotpink" : "currentColor"}
               className="bi bi-person-circle"
               viewBox="0 0 16 16"
