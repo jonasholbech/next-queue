@@ -10,6 +10,6 @@ export function getAbsoluteUrl() {
   if (IS_DEV) {
     return `http://localhost:3000`;
   } else {
-    return process.env.VERCEL_URL;
+    return `https://${process.env.VERCEL_URL};
   }
 }
