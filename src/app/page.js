@@ -4,10 +4,10 @@ import styles from "./page.module.css";
 import { getAbsoluteUrl } from "@/utils/vercel-utils";
 export default async function Home() {
   let { data, error } = await getRooms();
-  const users = await fetch(getAbsoluteUrl() + "/api/swapi").then((res) =>
+  /*   const users = await fetch(getAbsoluteUrl() + "/api/swapi/").then((res) =>
     res.json()
   );
-  console.log(users);
+  console.log(users); */
   console.log(process.env.VERCEL_URL);
   return (
     <main className={styles.main}>
@@ -16,3 +16,4 @@ export default async function Home() {
     </main>
   );
 }
+//next-queue-38d8pwwbv-jonasholbech.vercel.app/api/swapi
