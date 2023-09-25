@@ -1,4 +1,4 @@
-import { getRequestsForRoom, insertRequest } from "@/utils/requests";
+import { getRequestsForRoom } from "@/utils/requests";
 import styles from "./page.module.css";
 import RoomSlugWrapper from "@/app/wrappers/RoomSlugWrapper";
 

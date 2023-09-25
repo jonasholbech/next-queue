@@ -30,7 +30,7 @@ function Nav() {
         <span className="sr-only">Til forsiden</span>
       </Link>
       <div className={styles.profile}>
-        <p>Hej {name}</p>
+        {name && <p>Hej {name}</p>}
         <button role="button" onClick={clear}>
           Slet min data
         </button>
