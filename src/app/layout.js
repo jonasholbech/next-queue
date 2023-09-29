@@ -1,5 +1,6 @@
 import Nav from "./components/Nav";
 import "./globals.css";
+import "./styles/framework.css";
 import Head from "next/head";
 export const metadata = {
   title: "MMD Kø",

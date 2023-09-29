@@ -9,6 +9,7 @@
 }
 .nav button {
   width: auto;
+  padding: 0.5rem;
 }
 .nav * {
   margin: 0;
