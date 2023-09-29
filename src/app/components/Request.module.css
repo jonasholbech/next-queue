@@ -61,10 +61,10 @@
   font-size: 0.8rem;
 }
 @media only screen and (prefers-color-scheme: dark) {
-  .subtle {
+  .subtle .profile {
     color: var(--color-black-300);
   }
-  .request p {
+  .profile p {
     color: var(--color-black-100);
   }
 }
