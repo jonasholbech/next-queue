@@ -1,32 +1,27 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { subscribeToRoom } from "@/utils/requests";
 import Request from "./Request";
 import styles from "./Room.module.css";
+import { useVisibilityChange } from "@uidotdev/usehooks";
 function Room({ data = [], slug }) {
+  const documentVisible = useVisibilityChange();
   const [requests, setRequests] = useState([]);
   useEffect(() => {
-    /* let closeCallback = () => {};
-    console.log(document.visibilityState);
-    document.addEventListener("visibilitychange", () => {
-      console.log(document.visibilityState);
-      if (document.hidden) {
-        closeCallback();
-        console.log("unsubscribed");
-      } else {
-        closeCallback = subscribeToRoom(dbUpdate, slug);
-        console.log("subscribed");
-      }
-    }); */
-
-    const closeCallback = subscribeToRoom(dbUpdate, slug);
-
+    let closeCallback = () => {};
+    if (documentVisible) {
+      closeCallback = subscribeToRoom(dbUpdate, slug);
+      //console.log("Subscribed to room", slug);
+    } else {
+      closeCallback();
+      //console.log("Unsubscribed from room", slug);
+    }
+  }, [documentVisible, slug]);
+  useEffect(() => {
     setRequests(data);
-
-    return closeCallback;
-  }, [slug, data]);
+  }, [data]);
   function dbUpdate(payload) {
-    console.log(payload);
+    //console.log(payload);
     switch (payload.eventType) {
       case "UPDATE":
         setRequests((old) => {
