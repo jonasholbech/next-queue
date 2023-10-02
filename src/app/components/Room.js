@@ -6,8 +6,23 @@ import styles from "./Room.module.css";
 function Room({ data = [], slug }) {
   const [requests, setRequests] = useState([]);
   useEffect(() => {
-    setRequests(data);
+    /* let closeCallback = () => {};
+    console.log(document.visibilityState);
+    document.addEventListener("visibilitychange", () => {
+      console.log(document.visibilityState);
+      if (document.hidden) {
+        closeCallback();
+        console.log("unsubscribed");
+      } else {
+        closeCallback = subscribeToRoom(dbUpdate, slug);
+        console.log("subscribed");
+      }
+    }); */
+
     const closeCallback = subscribeToRoom(dbUpdate, slug);
+
+    setRequests(data);
+
     return closeCallback;
   }, [slug, data]);
   function dbUpdate(payload) {

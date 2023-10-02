@@ -7,4 +7,4 @@
 - cookie acceptance (behøver ikke, tror jeg)
 - alle kan se venter/får hjælp (kun de rigtige kan trykke)
 - checkbox på "email felt"
--
+- page visibility api subscribe/unsub
