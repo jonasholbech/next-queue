@@ -63,7 +63,7 @@ function Room({ slug }) {
       {requests.length === 0 && <p>Ingen problemer i køen</p>}
       {slug == "3SEM-FRO-E23" && (
         <FRODebugger>
-          {{ visibilityHistory, documentVisible, requests }}
+          {{ visibilityHistory, documentVisible, requests, localStorage }}
         </FRODebugger>
       )}
       {/* <p>{before.length} i køen før dig</p> */}
