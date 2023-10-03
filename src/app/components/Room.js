@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import { subscribeToRoom } from "@/utils/requests";
 import Request from "./Request";
 import styles from "./Room.module.css";
@@ -8,7 +8,9 @@ function Room({ data = [], slug }) {
   const documentVisible = useVisibilityChange();
   const [requests, setRequests] = useState([]);
   useEffect(() => {
-    let closeCallback = () => {};
+    let closeCallback = () => {
+      console.warn("fake callback called");
+    };
     if (documentVisible) {
       closeCallback = subscribeToRoom(dbUpdate, slug);
       //console.log("Subscribed to room", slug);
@@ -16,6 +18,7 @@ function Room({ data = [], slug }) {
       closeCallback();
       //console.log("Unsubscribed from room", slug);
     }
+    return closeCallback;
   }, [documentVisible, slug]);
   useEffect(() => {
     setRequests(data);
