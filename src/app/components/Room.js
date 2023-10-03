@@ -4,7 +4,13 @@ import { subscribeToRoom } from "@/utils/requests";
 import Request from "./Request";
 import styles from "./Room.module.css";
 import { useVisibilityChange } from "@uidotdev/usehooks";
-function Room({ data = [], slug }) {
+
+import { getRequestsForRoom } from "@/utils/requests";
+export const fetchCache = "force-no-store";
+export const revalidate = 0; // seconds
+export const dynamic = "force-dynamic";
+
+function Room({ slug }) {
   const documentVisible = useVisibilityChange();
   const [requests, setRequests] = useState([]);
   const [visibilityHistory, setVisibilityHistory] = useState([]);
@@ -15,6 +21,10 @@ function Room({ data = [], slug }) {
     setVisibilityHistory((old) => [...old, documentVisible]);
     if (documentVisible) {
       closeCallback = subscribeToRoom(dbUpdate, slug);
+      (async () => {
+        let { data, error } = await getRequestsForRoom(slug);
+        setRequests(data);
+      })();
       //console.log("Subscribed to room", slug);
     } else {
       closeCallback();
@@ -22,9 +32,7 @@ function Room({ data = [], slug }) {
     }
     return closeCallback;
   }, [documentVisible, slug]);
-  useEffect(() => {
-    setRequests(data);
-  }, [data]);
+  useEffect(() => {}, [documentVisible]);
   function dbUpdate(payload) {
     //console.log(payload);
     switch (payload.eventType) {
