@@ -51,7 +51,10 @@ function Request({ req }) {
         </div>
         {canDelete(req.id) ? (
           <div className={styles.actionbar}>
-            <button onClick={() => updateState(req.id, req.state)}>
+            <button
+              className={req.state === "Venter" ? "" : styles.gettingHelp}
+              onClick={() => updateState(req.id, req.state)}
+            >
               {req.state}
             </button>
 
