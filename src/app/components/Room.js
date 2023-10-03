@@ -7,10 +7,12 @@ import { useVisibilityChange } from "@uidotdev/usehooks";
 function Room({ data = [], slug }) {
   const documentVisible = useVisibilityChange();
   const [requests, setRequests] = useState([]);
+  const [visibilityHistory, setVisibilityHistory] = useState([]);
   useEffect(() => {
     let closeCallback = () => {
       console.warn("fake callback called");
     };
+    setVisibilityHistory((old) => [...old, documentVisible]);
     if (documentVisible) {
       closeCallback = subscribeToRoom(dbUpdate, slug);
       //console.log("Subscribed to room", slug);
@@ -52,6 +54,9 @@ function Room({ data = [], slug }) {
   return (
     <section>
       {requests.length === 0 && <p>Ingen problemer i køen</p>}
+      {slug == "3SEM-FRO-E23" && (
+        <pre>{JSON.stringify(visibilityHistory, null, 2)}</pre>
+      )}
       {/* <p>{before.length} i køen før dig</p> */}
       <ol className={styles.list}>
         {requests.map((req) => {
