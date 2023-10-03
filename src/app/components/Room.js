@@ -6,6 +6,7 @@ import styles from "./Room.module.css";
 import { useVisibilityChange } from "@uidotdev/usehooks";
 
 import { getRequestsForRoom } from "@/utils/requests";
+import FRODebugger from "./FRODebugger";
 export const fetchCache = "force-no-store";
 export const revalidate = 0; // seconds
 export const dynamic = "force-dynamic";
@@ -63,7 +64,9 @@ function Room({ slug }) {
     <section>
       {requests.length === 0 && <p>Ingen problemer i køen</p>}
       {slug == "3SEM-FRO-E23" && (
-        <pre>{JSON.stringify(visibilityHistory, null, 2)}</pre>
+        <FRODebugger>
+          {{ visibilityHistory, documentVisible, requests }}
+        </FRODebugger>
       )}
       {/* <p>{before.length} i køen før dig</p> */}
       <ol className={styles.list}>
