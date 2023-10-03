@@ -28,7 +28,6 @@ function Form({ slug }) {
         className="outline"
         onClick={() => {
           setOpen(true);
-          console.log("clicked");
         }}
       >
         Tilføj problem

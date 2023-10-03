@@ -13,7 +13,6 @@ export async function getRequestsForRoom(slug) {
     .select(`id, created_at, name, problem, description, state, initials`)
     .eq("room", slug)
     .order("created_at");
-  console.log("GETTING INITIAL DATA", data, error);
   return { data, error };
 }
 
@@ -51,6 +50,7 @@ export async function insertRequest({
   return error;
 }
 export function subscribeToRoom(callback, room) {
+  //TODO: error handling
   supabase
     .channel("schema-db-changes")
     .on(

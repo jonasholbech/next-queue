@@ -16,9 +16,7 @@ function Room({ slug }) {
   const [requests, setRequests] = useState([]);
   const [visibilityHistory, setVisibilityHistory] = useState([]);
   useEffect(() => {
-    let closeCallback = () => {
-      console.warn("fake callback called");
-    };
+    let closeCallback = () => {};
     setVisibilityHistory((old) => [...old, documentVisible]);
     if (documentVisible) {
       closeCallback = subscribeToRoom(dbUpdate, slug);
