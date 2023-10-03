@@ -21,31 +21,28 @@ function Request({ req }) {
               </a>
             )}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              fill={isAdmin() && req.initials ? "hotpink" : "currentColor"}
-              className="bi bi-person-circle"
-              viewBox="0 0 16 16"
-            >
-              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-              <path
-                fillRule="evenodd"
-                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-              />
-            </svg>
+            <p>{req.name}</p>
+            <p className={styles.subtle}>
+              {formatDistanceToNow(new Date(req.created_at), {
+                locale: daLocale,
+              })}
+            </p>
           </ConditionalWrapper>
-
-          <p>{req.name}</p>
-          <p className={styles.subtle}>
-            {formatDistanceToNow(new Date(req.created_at), {
-              locale: daLocale,
-            })}
-          </p>
         </div>
 
         <div className={styles.problem}>
+          {isAdmin() && req.initials && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-headset"
+              viewBox="0 0 16 16"
+            >
+              <path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5z" />
+            </svg>
+          )}
           <p>{req.problem}</p>{" "}
           <p className={styles.subtle}>{req.description}</p>
         </div>
@@ -62,7 +59,16 @@ function Request({ req }) {
               className={styles.delete}
               onClick={() => deleteRequest(req.id)}
             >
-              Slet
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-trash-fill"
+                viewBox="0 0 16 16"
+              >
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+              </svg>
             </button>
           </div>
         ) : (
