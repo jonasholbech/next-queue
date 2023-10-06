@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { clearAll, getUserName } from "@/utils/storage";
 import styles from "./Nav.module.css";
 import Link from "next/link";
-import { version } from "/package.json";
 function Nav() {
   const [name, setName] = useState("");
   useEffect(() => {

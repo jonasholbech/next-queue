@@ -63,7 +63,10 @@ export function subscribeToRoom(callback, room) {
       },
       (payload) => callback(payload)
     )
-    .subscribe();
+    .subscribe((status) => {
+      console.log("subscribe", status);
+      //CHANNEL_ERROR
+    });
   return () => {
     supabase.removeAllChannels();
   };

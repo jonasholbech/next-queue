@@ -7,6 +7,8 @@ import { useVisibilityChange } from "@uidotdev/usehooks";
 
 import { getRequestsForRoom } from "@/utils/requests";
 import FRODebugger from "./FRODebugger";
+
+//er de her nødvendige? liger i useEffect nu
 export const fetchCache = "force-no-store";
 export const revalidate = 0; // seconds
 export const dynamic = "force-dynamic";
@@ -24,16 +26,13 @@ function Room({ slug }) {
         let { data, error } = await getRequestsForRoom(slug);
         setRequests(data);
       })();
-      //console.log("Subscribed to room", slug);
     } else {
       closeCallback();
-      //console.log("Unsubscribed from room", slug);
     }
     return closeCallback;
   }, [documentVisible, slug]);
-  useEffect(() => {}, [documentVisible]);
+
   function dbUpdate(payload) {
-    //console.log(payload);
     switch (payload.eventType) {
       case "UPDATE":
         setRequests((old) => {
@@ -53,20 +52,15 @@ function Room({ slug }) {
         break;
     }
   }
-  /* const mine = requests.filter((request) => canDelete(request.id));
-  const before = requests.filter(
-    (request) =>
-      !canDelete(request.id) && request.created_at < mine[0].created_at
-  ); */
   return (
     <section>
-      {requests.length === 0 && <p>Ingen problemer i køen</p>}
+      {requests.length === 0 && <p>Ingen problemer i køen 🎉</p>}
       {slug == "3SEM-FRO-E23" && (
         <FRODebugger>
           {{ visibilityHistory, documentVisible, requests, localStorage }}
         </FRODebugger>
       )}
-      {/* <p>{before.length} i køen før dig</p> */}
+
       <ol className={styles.list}>
         {requests.map((req) => {
           return <Request key={req.id} req={req} />;
@@ -75,5 +69,4 @@ function Room({ slug }) {
     </section>
   );
 }
-
 export default Room;
