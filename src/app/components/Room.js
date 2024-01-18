@@ -50,12 +50,14 @@ function Room({ slug }) {
       case "INSERT":
         setRequests((old) => old.concat(payload.new));
         break;
+      default:
+        console.warn("Unhandled event type", payload);
     }
   }
   return (
     <section>
       {requests.length === 0 && <p>Ingen problemer i køen 🎉</p>}
-      {slug == "3SEM-FRO-E23" && (
+      {slug == "3SEM-FRO-F24" && (
         <FRODebugger>
           {{ visibilityHistory, documentVisible, requests, localStorage }}
         </FRODebugger>
