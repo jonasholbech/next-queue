@@ -12,7 +12,7 @@ import FRODebugger from "./FRODebugger";
 export const fetchCache = "force-no-store";
 export const revalidate = 0; // seconds
 export const dynamic = "force-dynamic";
-
+//TODO: 404 for N/A room
 function Room({ slug }) {
   const documentVisible = useVisibilityChange();
   const [requests, setRequests] = useState([]);
