@@ -43,7 +43,6 @@ function Form({ slug }) {
   }
 
   function dbUpdate(payload) {
-    console.log(payload);
     setSettings(payload.new);
   }
   if (!open) {
