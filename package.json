@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.18",
     "@supabase/supabase-js": "^2.33.1",
     "@uidotdev/usehooks": "^2.3.1",
     "date-fns": "^2.30.0",

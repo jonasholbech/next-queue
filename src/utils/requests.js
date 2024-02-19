@@ -6,7 +6,21 @@ export async function getRooms() {
     .order("name");
   return { data, error };
 }
-
+export async function getRoomState(slug) {
+  let { data, error } = await supabase
+    .from("mmd_queue_room")
+    .select(`open, allow_teams`)
+    .eq("name", slug);
+  data = data[0] || null;
+  return { data, error };
+}
+export async function toggleRoomState(slug, key, next) {
+  const { data, error } = await supabase
+    .from("mmd_queue_room")
+    .update({ [key]: !next })
+    .eq("name", slug);
+  console.log(data, error);
+}
 export async function getRequestsForRoom(slug) {
   let { data, error } = await supabase
     .from("mmd_queue_requests")
@@ -52,7 +66,30 @@ export async function insertRequest({
 export function subscribeToRoom(callback, room) {
   //TODO: error handling
   supabase
-    .channel("schema-db-changes")
+    .channel("schema-db-changes-room")
+    .on(
+      "postgres_changes",
+      {
+        event: "UPDATE",
+        schema: "public",
+        table: "mmd_queue_room",
+        filter: `name=eq.${room}`,
+      },
+      (payload) => callback(payload)
+    )
+    .subscribe((status) => {
+      console.log("subscribe", status);
+      //CHANNEL_ERROR
+    });
+  return () => {
+    supabase.removeAllChannels();
+  };
+}
+
+export function subscribeToRequests(callback, room) {
+  //TODO: error handling
+  supabase
+    .channel("schema-db-changes-requests")
     .on(
       "postgres_changes",
       {
@@ -60,6 +97,16 @@ export function subscribeToRoom(callback, room) {
         schema: "public",
         table: "mmd_queue_requests",
         filter: `room=eq.${room}`,
+      },
+      (payload) => callback(payload)
+    )
+    .on(
+      "postgres_changes",
+      {
+        event: "UPDATE",
+        schema: "public",
+        table: "mmd_queue_room",
+        filter: `name=eq.${room}`,
       },
       (payload) => callback(payload)
     )

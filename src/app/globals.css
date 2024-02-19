@@ -1,5 +1,5 @@
 /* establish a layer order up-front, from lowest to highest priority */
-@layer framework, utils;
+@layer framework, utils, components;
 /*have to import it separately right now (layout.js)*/
 /* import stylesheets into a layer (dot syntax represents nesting) */
 @layer utils {

@@ -1,0 +1,37 @@
+.group {
+  display: flex;
+  gap: 0.5rem;
+}
+.active {
+  background-color: var(--primary);
+}
+.inactive {
+  background-color: var(--muted-color);
+}
+.switch {
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  border-radius: 9999px;
+  width: 2.75rem;
+  height: 1.5rem;
+  padding: 0;
+}
+.activeBall {
+  --transform-translate-x: 1.5rem;
+}
+.inactiveBall {
+  --transform-translate-x: 0.25rem;
+}
+.ball {
+  display: inline-block;
+  border-radius: 9999px;
+  transform: translateX(var(--transform-translate-x));
+  width: 1rem;
+  height: 1rem;
+  background-color: #ffffff;
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}

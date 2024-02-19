@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { clearAll, getUserName } from "@/utils/storage";
 import styles from "./Nav.module.css";
 import Link from "next/link";
+
 function Nav() {
   const [name, setName] = useState("");
   useEffect(() => {
@@ -29,7 +30,6 @@ function Nav() {
         </svg>
         <span className="sr-only">Til forsiden</span>
       </Link>
-
       <div className={styles.profile}>
         {name && <p>Hej {name}</p>}
         <button role="button" onClick={clear}>

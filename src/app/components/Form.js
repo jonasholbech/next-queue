@@ -1,10 +1,30 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { insertRequest } from "@/utils/requests";
 import { addID, getUserName } from "@/utils/storage";
-
+import AdminRoomMenu from "../wrappers/AdminRoomMenu";
+import { isAdmin } from "@/utils/storage";
+import { subscribeToRoom, getRoomState } from "@/utils/requests";
+import { useVisibilityChange } from "@uidotdev/usehooks";
 function Form({ slug }) {
   const [open, setOpen] = useState(false);
+  const [settings, setSettings] = useState({ open: false, allow_teams: false });
+  const documentVisible = useVisibilityChange();
+
+  useEffect(() => {
+    let closeCallback = () => {};
+    if (documentVisible) {
+      closeCallback = subscribeToRoom(dbUpdate, slug);
+      (async () => {
+        const { data, error } = await getRoomState(slug);
+        setSettings(data);
+      })();
+    } else {
+      closeCallback();
+    }
+    return closeCallback;
+  }, [documentVisible, slug]);
+
   async function addRequest(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -22,16 +42,25 @@ function Form({ slug }) {
     }
   }
 
+  function dbUpdate(payload) {
+    console.log(payload);
+    setSettings(payload.new);
+  }
   if (!open) {
     return (
-      <button
-        className="outline"
-        onClick={() => {
-          setOpen(true);
-        }}
-      >
-        Tilføj problem
-      </button>
+      <>
+        {isAdmin() && <AdminRoomMenu slug={slug} settings={settings} />}
+
+        <button
+          className="outline"
+          disabled={!settings.open}
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          {settings.open ? "Tilføj problem" : "Køen er lukket"}
+        </button>
+      </>
     );
   }
 
@@ -62,17 +91,19 @@ function Form({ slug }) {
             </label>
           )}
 
-          <details>
-            <summary>Vil du ringes op?</summary>
-            <label>
-              KEA mail
-              <input
-                type="text"
-                name="initials"
-                placeholder="Hvis vi skal ringe dig op"
-              />
-            </label>
-          </details>
+          {settings.allow_teams && (
+            <details>
+              <summary>Vil du ringes op?</summary>
+              <label>
+                KEA mail
+                <input
+                  type="text"
+                  name="initials"
+                  placeholder="Hvis vi skal ringe dig op"
+                />
+              </label>
+            </details>
+          )}
 
           <label>
             Problem

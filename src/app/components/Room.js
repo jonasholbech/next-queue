@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { subscribeToRoom } from "@/utils/requests";
+import { subscribeToRequests, getRoomState } from "@/utils/requests";
 import Request from "./Request";
 import styles from "./Room.module.css";
 import { useVisibilityChange } from "@uidotdev/usehooks";
@@ -17,11 +17,12 @@ function Room({ slug }) {
   const documentVisible = useVisibilityChange();
   const [requests, setRequests] = useState([]);
   const [visibilityHistory, setVisibilityHistory] = useState([]);
+
   useEffect(() => {
     let closeCallback = () => {};
     setVisibilityHistory((old) => [...old, documentVisible]);
     if (documentVisible) {
-      closeCallback = subscribeToRoom(dbUpdate, slug);
+      closeCallback = subscribeToRequests(dbUpdate, slug);
       (async () => {
         let { data, error } = await getRequestsForRoom(slug);
         setRequests(data);
