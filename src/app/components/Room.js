@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { subscribeToRequests, getRoomState } from "@/utils/requests";
 import Request from "./Request";
 import styles from "./Room.module.css";
@@ -7,6 +7,7 @@ import { useVisibilityChange } from "@uidotdev/usehooks";
 
 import { getRequestsForRoom } from "@/utils/requests";
 import FRODebugger from "./FRODebugger";
+import { StateContext } from "@/contexts/errorContext";
 
 //er de her nødvendige? liger i useEffect nu
 export const fetchCache = "force-no-store";
@@ -18,15 +19,18 @@ function Room({ slug }) {
   //skal subscriptions hoistes til form?
   const documentVisible = useVisibilityChange();
   const [requests, setRequests] = useState([]);
-  const [visibilityHistory, setVisibilityHistory] = useState([]);
 
+  const setError = useContext(StateContext);
   useEffect(() => {
     let closeCallback = () => {};
-    setVisibilityHistory((old) => [...old, documentVisible]);
+
     if (documentVisible) {
-      closeCallback = subscribeToRequests(dbUpdate, slug);
+      closeCallback = subscribeToRequests(dbUpdate, slug, statusCallback);
       (async () => {
         let { data, error } = await getRequestsForRoom(slug);
+        if (error) {
+          setError(error.message);
+        }
         setRequests(data);
       })();
     } else {
@@ -35,6 +39,15 @@ function Room({ slug }) {
     return closeCallback;
   }, [documentVisible, slug]);
 
+  function statusCallback(status) {
+    switch (status) {
+      case "CHANNEL_ERROR":
+      case "TIMED OUT":
+        setError("Problemer med forbindelsen: " + status);
+        //TODO: recover from error?
+        break;
+    }
+  }
   function dbUpdate(payload) {
     switch (payload.eventType) {
       case "UPDATE":
@@ -61,9 +74,7 @@ function Room({ slug }) {
     <section>
       {requests.length === 0 && <p>Ingen problemer i køen 🎉</p>}
       {slug == "3SEM-FRO-F24" && (
-        <FRODebugger>
-          {{ visibilityHistory, documentVisible, requests, localStorage }}
-        </FRODebugger>
+        <FRODebugger>{{ documentVisible, requests, localStorage }}</FRODebugger>
       )}
 
       <ol className={styles.list}>

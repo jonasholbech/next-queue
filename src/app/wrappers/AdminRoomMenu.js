@@ -1,8 +1,9 @@
 import ToggleSwitch from "../components/ToggleSwitch";
 import { toggleRoomState } from "@/utils/requests";
+import styles from "./AdminRoomMenu.module.css";
 export default function AdminRoomMenu({ slug, settings }) {
   return (
-    <>
+    <div className={styles.wrapper}>
       <ToggleSwitch
         label="Åbent"
         initialValue={settings.open}
@@ -15,6 +16,6 @@ export default function AdminRoomMenu({ slug, settings }) {
           toggleRoomState(slug, "allow_teams", settings.allow_teams)
         }
       />
-    </>
+    </div>
   );
 }

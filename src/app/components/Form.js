@@ -8,7 +8,7 @@ import { subscribeToRoom, getRoomState } from "@/utils/requests";
 import { useVisibilityChange } from "@uidotdev/usehooks";
 function Form({ slug }) {
   const [open, setOpen] = useState(false);
-  const [settings, setSettings] = useState({ open: false, allow_teams: false });
+  const [settings, setSettings] = useState({ open: true, allow_teams: false });
   const documentVisible = useVisibilityChange();
 
   useEffect(() => {
@@ -111,7 +111,10 @@ function Form({ slug }) {
           <input type="hidden" name="slug" value={slug} />
           <label>
             Beskrivelse
-            <textarea name="description"></textarea>
+            <textarea
+              placeholder="Eller skriv hvor i sidder hvis vi skal finde jer"
+              name="description"
+            ></textarea>
           </label>
           <button>Tilføj</button>
         </form>

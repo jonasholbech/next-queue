@@ -78,15 +78,16 @@ export function subscribeToRoom(callback, room) {
       (payload) => callback(payload)
     )
     .subscribe((status) => {
-      console.log("subscribe", status);
+      //console.log("subscribe", status);
       //CHANNEL_ERROR
+      //TIMED OUT
     });
   return () => {
     supabase.removeAllChannels();
   };
 }
 
-export function subscribeToRequests(callback, room) {
+export function subscribeToRequests(callback, room, statusCallback = () => {}) {
   //TODO: error handling
   supabase
     .channel("schema-db-changes-requests")
@@ -111,8 +112,10 @@ export function subscribeToRequests(callback, room) {
       (payload) => callback(payload)
     )
     .subscribe((status) => {
-      console.log("subscribe", status);
+      //console.log("subscribe", status);
+      statusCallback(status);
       //CHANNEL_ERROR
+      //TIMED OUT
     });
   return () => {
     supabase.removeAllChannels();
