@@ -14,6 +14,8 @@ export const revalidate = 0; // seconds
 export const dynamic = "force-dynamic";
 //TODO: 404 for N/A room
 function Room({ slug }) {
+  //TODO: useVisibilityChangeSubscribe ? og i form
+  //skal subscriptions hoistes til form?
   const documentVisible = useVisibilityChange();
   const [requests, setRequests] = useState([]);
   const [visibilityHistory, setVisibilityHistory] = useState([]);
