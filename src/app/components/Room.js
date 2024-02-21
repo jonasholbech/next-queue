@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useContext } from "react";
-import { subscribeToRequests, getRoomState } from "@/utils/requests";
+import { subscribeToRequests } from "@/utils/requests";
 import Request from "./Request";
 import styles from "./Room.module.css";
 import { useVisibilityChange } from "@uidotdev/usehooks";
@@ -16,6 +16,7 @@ export const dynamic = "force-dynamic";
 //TODO: 404 for N/A room
 function Room({ slug }) {
   //TODO: useVisibilityChangeSubscribe ? og i form
+  //TODO: navigatorOffline i uidotdev
   //skal subscriptions hoistes til form?
   const documentVisible = useVisibilityChange();
   const [requests, setRequests] = useState([]);
@@ -23,7 +24,15 @@ function Room({ slug }) {
   const setError = useContext(StateContext);
   useEffect(() => {
     let closeCallback = () => {};
-
+    function statusCallback(status) {
+      switch (status) {
+        case "CHANNEL_ERROR":
+        case "TIMED OUT":
+          setError("Problemer med forbindelsen: " + status);
+          //TODO: recover from error?
+          break;
+      }
+    }
     if (documentVisible) {
       closeCallback = subscribeToRequests(dbUpdate, slug, statusCallback);
       (async () => {
@@ -37,17 +46,8 @@ function Room({ slug }) {
       closeCallback();
     }
     return closeCallback;
-  }, [documentVisible, slug]);
+  }, [documentVisible, slug, setError]);
 
-  function statusCallback(status) {
-    switch (status) {
-      case "CHANNEL_ERROR":
-      case "TIMED OUT":
-        setError("Problemer med forbindelsen: " + status);
-        //TODO: recover from error?
-        break;
-    }
-  }
   function dbUpdate(payload) {
     switch (payload.eventType) {
       case "UPDATE":
